@@ -65,7 +65,7 @@ portfolio.github.io/
 ## 📞 Contact Information
 
 - **Email**: [mhmn200021@gmail.com](mailto:mhmn200021@gmail.com)
-- **LinkedIn**: [Mahinsa Nethmina](https://www.linkedin.com/in/mahinsa-nethmina-451284288/)
+- **LinkedIn**: [Mahinsa Nethmina](www.linkedin.com/in/mahinsa-nethmina)
 - **GitHub**: [MHMNP2021](https://github.com/MHMNP2021)
 - **Location**: Pannala, Sri Lanka
 
