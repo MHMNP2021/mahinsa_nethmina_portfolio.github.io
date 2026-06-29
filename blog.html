@@ -14,74 +14,96 @@
     .blog-hero {
       padding: 140px 24px 80px;
       text-align: center;
-      background: linear-gradient(135deg, rgba(77,123,243,.08) 0%, transparent 100%);
       position: relative;
       overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 50%, rgba(77,123,243,.08) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 30%, rgba(108,99,255,.06) 0%, transparent 40%);
     }
     .blog-hero h1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(2.2rem, 5vw, 3.5rem);
       margin-bottom: 12px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background: linear-gradient(135deg, var(--primary), var(--accent));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
     .blog-hero p { color: var(--text-secondary); max-width: 600px; margin: 0 auto 32px; font-size: 1.05rem; }
-    .search-wrap { max-width: 500px; margin: 0 auto; position: relative; }
+    .search-wrap { max-width: 480px; margin: 0 auto; position: relative; }
     .search-wrap input {
       width: 100%; padding: 14px 20px 14px 48px;
-      border-radius: 50px; border: 1px solid var(--border);
-      background: var(--bg-card); color: var(--text);
-      font-size: 0.95rem; transition: all .3s;
+      border-radius: 50px; border: 1px solid var(--glass-border);
+      background: var(--glass); color: var(--text);
+      font-size: .92rem; transition: all .3s; backdrop-filter: blur(8px);
     }
-    .search-wrap input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(77,123,243,.15); }
+    .search-wrap input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(77,123,243,.12); }
     .search-wrap i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
     .blog-main { padding: 60px 0 80px; }
     .blog-filter { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
-    .blog-posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; }
+    .blog-posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
     .blog-post-card {
-      background: var(--bg-card); border-radius: var(--radius); overflow: hidden;
-      box-shadow: var(--shadow); transition: all .3s;
-      display: flex; flex-direction: column; height: 100%;
+      background: var(--bg-card); border: 1px solid var(--glass-border);
+      border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); transition: all .4s cubic-bezier(.4,0,.2,1);
+      display: flex; flex-direction: column; height: 100%; backdrop-filter: blur(4px);
     }
-    .blog-post-card:hover { transform: translateY(-8px); box-shadow: 0 16px 32px rgba(0,0,0,.25); }
-    .post-img { height: 200px; overflow: hidden; }
-    .post-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-    .blog-post-card:hover .post-img img { transform: scale(1.05); }
+    .blog-post-card:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: var(--shadow), 0 0 30px rgba(77,123,243,.1);
+      border-color: rgba(77,123,243,.2);
+    }
+    .post-img { height: 200px; overflow: hidden; position: relative; }
+    .post-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 60%, var(--bg-card));
+    }
+    .post-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s; }
+    .blog-post-card:hover .post-img img { transform: scale(1.08); }
     .post-body { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
-    .post-date { color: var(--text-muted); font-size: .85rem; margin-bottom: 8px; }
-    .post-body h2 { font-size: 1.2rem; margin-bottom: 10px; line-height: 1.4; }
+    .post-date { color: var(--text-muted); font-size: .84rem; margin-bottom: 8px; }
+    .post-date i { margin-right: 4px; }
+    .post-body h2 { font-size: 1.15rem; margin-bottom: 10px; line-height: 1.4; }
     .post-body h2 a:hover { color: var(--primary); }
     .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
     .post-tags .tag {
       padding: 4px 12px; border-radius: 50px;
-      background: var(--tag-bg); color: var(--primary);
-      font-size: .78rem; font-weight: 500; transition: all .3s;
+      background: rgba(77,123,243,.08); border: 1px solid rgba(77,123,243,.15);
+      color: var(--primary-light); font-size: .76rem; font-weight: 500; transition: all .3s;
     }
-    .post-tags .tag:hover { background: var(--primary); color: #fff; }
-    .post-body p { color: var(--text-secondary); font-size: .9rem; margin-bottom: 16px; flex-grow: 1; line-height: 1.7; }
+    .post-tags .tag:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .post-body p { color: var(--text-secondary); font-size: .88rem; margin-bottom: 16px; flex-grow: 1; line-height: 1.7; }
     .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 48px; }
     .page-link {
       width: 40px; height: 40px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      background: var(--bg-card); color: var(--text); font-weight: 500;
-      transition: all .3s; box-shadow: var(--shadow);
+      background: var(--glass); border: 1px solid var(--glass-border);
+      color: var(--text); font-weight: 500; font-size: .9rem;
+      transition: all .3s;
     }
-    .page-link.active, .page-link:hover { background: var(--primary); color: #fff; }
+    .page-link.active, .page-link:hover {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: #fff; border-color: transparent; box-shadow: 0 4px 15px rgba(77,123,243,.3);
+    }
     .newsletter {
-      background: var(--bg-card); border-radius: var(--radius-lg);
+      background: var(--glass); border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px); border-radius: var(--radius-lg);
       padding: 60px 32px; text-align: center; margin: 60px 0;
     }
-    .newsletter h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 12px; }
+    .newsletter h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3vw, 1.8rem); margin-bottom: 12px; }
     .newsletter p { color: var(--text-secondary); margin-bottom: 24px; }
-    .newsletter-form { display: flex; max-width: 480px; margin: 0 auto; gap: 12px; }
+    .newsletter-form { display: flex; max-width: 460px; margin: 0 auto; gap: 12px; }
     .newsletter-form input {
       flex: 1; padding: 14px 20px; border-radius: 50px;
-      border: 1px solid var(--border); background: var(--bg);
-      color: var(--text); font-size: .95rem;
+      border: 1px solid var(--glass-border); background: rgba(255,255,255,.03);
+      color: var(--text); font-size: .92rem; transition: all .3s;
     }
-    .newsletter-form input:focus { outline: none; border-color: var(--primary); }
+    .newsletter-form input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(77,123,243,.12); }
+    .light-theme .newsletter-form input { background: rgba(255,255,255,.7); }
     @media (max-width: 600px) {
       .newsletter-form { flex-direction: column; }
       .blog-posts-grid { grid-template-columns: 1fr; }
@@ -90,12 +112,12 @@
 </head>
 <body>
 
-  <!-- Loader -->
+  <canvas id="particleCanvas"></canvas>
+
   <div class="loader" id="loader">
     <div class="spinner"></div>
   </div>
 
-  <!-- Header -->
   <header id="header">
     <nav>
       <div class="logo">MHMN<span>Perera</span></div>
@@ -117,7 +139,7 @@
   <main>
     <section class="blog-hero">
       <h1>Insights & Knowledge</h1>
-      <p>Explore my thoughts, insights, and tutorials on data science, financial analysis, economics, and more.</p>
+      <p>Thoughts, tutorials, and deep dives into data science, financial analysis, economics, and more.</p>
       <div class="search-wrap">
         <i class="fas fa-search"></i>
         <input type="text" id="searchBar" placeholder="Search articles...">
@@ -150,7 +172,7 @@
                 <span class="tag">Management</span>
                 <span class="tag">Psychology</span>
               </div>
-              <p>Explore the five primary types of disagreements in corporate environments and society: emotionally driven, fact-based, bias-based, communication-related, and fear-based conflicts. Learn effective resolution strategies for each type.</p>
+              <p>Explore the five primary types of disagreements in corporate environments and society: emotionally driven, fact-based, bias-based, communication-related, and fear-based conflicts.</p>
               <a href="blog/disagreement-types.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
             </div>
           </article>
@@ -167,7 +189,7 @@
                 <span class="tag">Communication</span>
                 <span class="tag">Business</span>
               </div>
-              <p>Learn how effective communication can be your competitive edge in finance. Discover strategies for client communication, data visualization, financial storytelling, and avoiding common pitfalls in financial messaging.</p>
+              <p>Learn how effective communication can be your competitive edge in finance. Discover strategies for client communication, data visualization, and financial storytelling.</p>
               <a href="blog/business-communication-finance.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
             </div>
           </article>
@@ -184,7 +206,7 @@
                 <span class="tag">Trading</span>
                 <span class="tag">Global Markets</span>
               </div>
-              <p>Explore the world's largest financial market with daily trading volumes exceeding $6.6 trillion. Learn about currency pairs, market participants, and how the Forex market impacts global economics.</p>
+              <p>Explore the world's largest financial market with daily trading volumes exceeding $6.6 trillion. Learn about currency pairs, market participants, and global impact.</p>
               <a href="blog/forex-market.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
             </div>
           </article>
@@ -216,7 +238,7 @@
                 <span class="tag">Economics</span>
                 <span class="tag">Finance</span>
               </div>
-              <p>Explore the structure, functions, and importance of capital markets in the global economy, with a special focus on the Sri Lankan capital market landscape.</p>
+              <p>Explore the structure, functions, and importance of capital markets in the global economy, with a focus on the Sri Lankan capital market landscape.</p>
               <a href="blog/capital-market.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
             </div>
           </article>
@@ -232,7 +254,7 @@
                 <span class="tag">Economics</span>
                 <span class="tag">Finance</span>
               </div>
-              <p>Discover the essential components, functions, and significance of money markets in the financial system, including a detailed look at Sri Lanka's money market.</p>
+              <p>Discover the essential components, functions, and significance of money markets in the financial system, including a look at Sri Lanka's money market.</p>
               <a href="blog/money-market.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
             </div>
           </article>
@@ -250,7 +272,9 @@
           <p>Stay updated with my latest articles, tutorials, and insights delivered directly to your inbox.</p>
           <form class="newsletter-form" id="newsletterForm">
             <input type="email" placeholder="Your email address" required>
-            <button type="submit" class="btn primary-btn" style="white-space:nowrap;">Subscribe</button>
+            <button type="submit" class="btn primary-btn" style="white-space:nowrap;">
+              <i class="fas fa-paper-plane"></i> Subscribe
+            </button>
           </form>
         </div>
       </div>
@@ -262,7 +286,9 @@
       <div class="footer-grid">
         <div class="footer-col">
           <h3>About Me</h3>
-          <p style="color:var(--text-secondary);font-size:.9rem;line-height:1.6;">I'm a data scientist and financial analyst passionate about exploring the intersection of data, economics, and technology.</p>
+          <p style="color:var(--text-secondary);font-size:.88rem;line-height:1.7;">
+            I'm a data scientist and financial analyst passionate about exploring the intersection of data, economics, and technology.
+          </p>
         </div>
         <div class="footer-col">
           <h3>Quick Links</h3>
@@ -278,10 +304,10 @@
         <div class="footer-col">
           <h3>Latest Posts</h3>
           <ul>
-            <li><a href="blog/disagreement-types.html"><i class="fas fa-chevron-right"></i> Types of Disagreement in Corporate Sector and Society</a></li>
-            <li><a href="blog/forex-market.html"><i class="fas fa-chevron-right"></i> Forex Market: A Comprehensive Overview</a></li>
-            <li><a href="blog/money-market.html"><i class="fas fa-chevron-right"></i> Money Market: A Comprehensive Overview</a></li>
-            <li><a href="blog/capital-market.html"><i class="fas fa-chevron-right"></i> Capital Market: A Comprehensive Overview</a></li>
+            <li><a href="blog/disagreement-types.html"><i class="fas fa-chevron-right"></i> Types of Disagreement</a></li>
+            <li><a href="blog/forex-market.html"><i class="fas fa-chevron-right"></i> Forex Market Overview</a></li>
+            <li><a href="blog/money-market.html"><i class="fas fa-chevron-right"></i> Money Market Overview</a></li>
+            <li><a href="blog/capital-market.html"><i class="fas fa-chevron-right"></i> Capital Market Overview</a></li>
           </ul>
         </div>
       </div>
@@ -302,7 +328,6 @@
   <script src="script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Blog filtering
       const filterBtns = document.querySelectorAll('.blog-filter .filter-btn');
       const posts = document.querySelectorAll('.blog-post-card');
 
@@ -311,11 +336,16 @@
           filterBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
           const filter = btn.dataset.filter;
-          posts.forEach(post => {
+          posts.forEach((post, i) => {
             const tags = post.dataset.tags.split(' ');
             if (filter === 'all' || tags.includes(filter)) {
               post.style.display = 'flex';
-              requestAnimationFrame(() => { post.style.opacity = '1'; post.style.transform = 'translateY(0)'; });
+              post.style.opacity = '0';
+              post.style.transform = 'translateY(20px)';
+              setTimeout(() => {
+                post.style.opacity = '1';
+                post.style.transform = 'translateY(0)';
+              }, i * 80);
             } else {
               post.style.opacity = '0';
               post.style.transform = 'translateY(12px)';
@@ -325,7 +355,6 @@
         });
       });
 
-      // Search
       const searchBar = document.getElementById('searchBar');
       if (searchBar) {
         searchBar.addEventListener('keyup', () => {
@@ -346,14 +375,13 @@
         });
       }
 
-      // Newsletter
       const nlForm = document.getElementById('newsletterForm');
       if (nlForm) {
         nlForm.addEventListener('submit', e => {
           e.preventDefault();
           const input = nlForm.querySelector('input');
           if (input.value.trim()) {
-            alert('Thank you for subscribing!');
+            alert('Thanks for subscribing!');
             input.value = '';
           }
         });

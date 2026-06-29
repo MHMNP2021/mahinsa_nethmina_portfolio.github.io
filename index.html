@@ -13,6 +13,8 @@
 </head>
 <body>
 
+  <canvas id="particleCanvas"></canvas>
+
   <!-- Loader -->
   <div class="loader" id="loader">
     <div class="spinner"></div>
@@ -39,13 +41,27 @@
 
   <!-- Hero -->
   <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="orb"></div>
+      <div class="orb"></div>
+      <div class="orb"></div>
+    </div>
     <div class="hero-content">
-      <h1>Hi, I'm Mahinsa Nethmina Perera</h1>
-      <p class="subtitle">Aspiring Financial Analyst | Data Enthusiast | Future Researcher</p>
+      <div class="hero-badge">
+        <i class="fas fa-sparkles"></i> Open to opportunities
+      </div>
+      <h1>Hi, I'm Mahinsa <br>Nethmina Perera</h1>
+      <p class="subtitle">Aspiring Financial Analyst</p>
       <div class="hero-buttons">
-        <a href="assets/CV_mahinsa_nethmina.pdf" class="btn primary-btn" download>Download CV</a>
-        <a href="assets/myresume.pdf" class="btn secondary-btn" download>Download Resume</a>
-        <a href="#projects" class="btn secondary-btn">View Projects</a>
+        <a href="assets/CV_mahinsa_nethmina.pdf" class="btn primary-btn" download>
+          <i class="fas fa-download"></i> Download CV
+        </a>
+        <a href="assets/myresume.pdf" class="btn secondary-btn" download>
+          <i class="fas fa-file"></i> Resume
+        </a>
+        <a href="#projects" class="btn secondary-btn">
+          <i class="fas fa-arrow-right"></i> View Projects
+        </a>
       </div>
     </div>
     <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
@@ -98,8 +114,7 @@
         <button class="filter-btn" data-filter="university">University Projects</button>
         <button class="filter-btn" data-filter="self">Self Studies</button>
       </div>
-      <div class="projects-grid">
-
+      <div class="projects-grid stagger">
         <!-- Project 1 -->
         <div class="project-card fade-up" data-category="university">
           <div class="project-image">
@@ -107,18 +122,17 @@
           </div>
           <div class="project-content">
             <h3>A Case Study of Commercial Banks Among Undergraduates at the University of Ruhuna, Sri Lanka</h3>
-            <p>This is my first social research paper, conducted as part of the partial fulfillment of my degree. It explores how e-banking service quality impacts satisfaction and loyalty among undergraduates at the University of Ruhuna, Sri Lanka.</p>
+            <p>My first social research paper exploring how e-banking service quality impacts satisfaction and loyalty among undergraduates.</p>
             <div class="project-tech">
               <span>SPSS</span>
               <span>Research</span>
               <span>Banking</span>
             </div>
             <div class="project-links">
-              <a href="assets/documents/socialresearch1.pdf" target="_blank" class="btn small-btn">View Case Study</a>
+              <a href="assets/documents/socialresearch1.pdf" target="_blank" class="btn small-btn primary-btn">View Case Study</a>
             </div>
           </div>
         </div>
-
         <!-- Project 2 -->
         <div class="project-card fade-up" data-category="university">
           <div class="project-image">
@@ -126,18 +140,17 @@
           </div>
           <div class="project-content">
             <h3>The Impact of Marketing Spend, Promotions and Other Factors on Restaurant Revenue</h3>
-            <p>This is my second case study, conducted to analyze factors influencing restaurant revenue using multiple linear regression. It investigates the effects of key variables like customer count, menu pricing, and marketing spend.</p>
+            <p>Analyzed factors influencing restaurant revenue using multiple linear regression, investigating customer count, menu pricing, and marketing spend.</p>
             <div class="project-tech">
               <span>R Studio</span>
               <span>Multiple Linear Regression</span>
               <span>Kaggle</span>
             </div>
             <div class="project-links">
-              <a href="assets/documents/casestudy1.pdf" target="_blank" class="btn small-btn">View Case Study</a>
+              <a href="assets/documents/casestudy1.pdf" target="_blank" class="btn small-btn primary-btn">View Case Study</a>
             </div>
           </div>
         </div>
-
         <!-- Project 3 -->
         <div class="project-card fade-up" data-category="university">
           <div class="project-image">
@@ -145,18 +158,17 @@
           </div>
           <div class="project-content">
             <h3>Fitting the Logistic Growth Model: Insights into Sustainable Fish Harvesting</h3>
-            <p>This is my third case study, focusing on fitting the Logistic Growth Model to explore sustainable fish harvesting. It provides valuable insights into balancing ecological conservation with efficient resource management.</p>
+            <p>Focused on fitting the Logistic Growth Model to explore sustainable fish harvesting, balancing ecological conservation with resource management.</p>
             <div class="project-tech">
               <span>Matlab</span>
               <span>Logistic Growth Model</span>
               <span>Sustainability</span>
             </div>
             <div class="project-links">
-              <a href="assets/documents/casestudy2.pdf" target="_blank" class="btn small-btn">View Case Study</a>
+              <a href="assets/documents/casestudy2.pdf" target="_blank" class="btn small-btn primary-btn">View Case Study</a>
             </div>
           </div>
         </div>
-
         <!-- Project 4 -->
         <div class="project-card fade-up" data-category="university" data-id="java-oop">
           <div class="project-image">
@@ -164,18 +176,19 @@
           </div>
           <div class="project-content">
             <h3>Java OOP Project</h3>
-            <p>Object-oriented programming implementation in Java showcasing core OOP principles through a FOSMIS interface. This project demonstrates my understanding of Java programming and software development concepts.</p>
+            <p>Object-oriented programming implementation in Java showcasing core OOP principles through a FOSMIS interface.</p>
             <div class="project-tech">
               <span>Java</span>
               <span>OOP</span>
               <span>NetBeans</span>
             </div>
             <div class="project-links">
-              <a href="#" class="btn small-btn project-details-btn" data-project="java-oop">View Details</a>
+              <a href="#" class="btn small-btn secondary-btn project-details-btn" data-project="java-oop">
+                <i class="fas fa-play"></i> View Demo
+              </a>
             </div>
           </div>
         </div>
-
         <!-- Project 5 -->
         <div class="project-card fade-up" data-category="self">
           <div class="project-image">
@@ -183,7 +196,7 @@
           </div>
           <div class="project-content">
             <h3>Portfolio Risk and Return Analysis on the Colombo Stock Exchange (CSE)</h3>
-            <p>This project applies modern portfolio theory to the Sri Lankan equity market, focusing on diversification and risk-adjusted performance. Using historical data from selected CSE stocks, the analysis estimates expected returns, beta coefficients, Value at Risk (VaR), and Treynor Ratios.</p>
+            <p>Applied modern portfolio theory to the Sri Lankan equity market, analyzing expected returns, beta coefficients, VaR, and Treynor Ratios.</p>
             <div class="project-tech">
               <span>Excel</span>
               <span>Python</span>
@@ -191,12 +204,11 @@
               <span>Portfolio Analysis</span>
             </div>
             <div class="project-links">
-              <a href="assets/documents/CSE_Portfolio_Risk_Analysis_MHMN_Perera.pdf" target="_blank" class="btn small-btn">View Report</a>
-              <a href="assets/documents/CSE_Portfolio_Risk_Analysis_MHMN_Perera.xlsx" target="_blank" class="btn small-btn">Download Data</a>
+              <a href="assets/documents/CSE_Portfolio_Risk_Analysis_MHMN_Perera.pdf" target="_blank" class="btn small-btn primary-btn">View Report</a>
+              <a href="assets/documents/CSE_Portfolio_Risk_Analysis_MHMN_Perera.xlsx" target="_blank" class="btn small-btn secondary-btn">Data</a>
             </div>
           </div>
         </div>
-
         <!-- Project 6 -->
         <div class="project-card fade-up" data-category="self">
           <div class="project-image">
@@ -204,19 +216,18 @@
           </div>
           <div class="project-content">
             <h3>Modern Portfolio Optimization Using Excel</h3>
-            <p>As part of my continuous learning in Investment Risk Management, I applied Modern Portfolio Theory (MPT) to optimize a small investor portfolio using Sri Lankan stock market data (CSE). Using Excel Solver, I maximized the Sharpe ratio, reducing portfolio volatility while maintaining strong returns.</p>
+            <p>Applied Modern Portfolio Theory to optimize a small investor portfolio using CSE data. Maximized the Sharpe ratio using Excel Solver.</p>
             <div class="project-tech">
               <span>Excel</span>
               <span>Finance</span>
               <span>Portfolio Analysis</span>
             </div>
             <div class="project-links">
-              <a href="assets/documents/Modern_Portfolio_Optimization_SriLanka.pdf" target="_blank" class="btn small-btn">View Report</a>
-              <a href="assets/documents/Modern%20portfolio%20optimization.xlsx" target="_blank" class="btn small-btn">Download Data</a>
+              <a href="assets/documents/Modern_Portfolio_Optimization_SriLanka.pdf" target="_blank" class="btn small-btn primary-btn">View Report</a>
+              <a href="assets/documents/Modern%20portfolio%20optimization.xlsx" target="_blank" class="btn small-btn secondary-btn">Data</a>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -236,7 +247,7 @@
         </div>
         <div class="modal-text">
           <h3>Project Overview</h3>
-          <p>This project demonstrates my understanding and implementation of Object-Oriented Programming principles in Java. I built this as a partial fulfillment of my degree program. The video showcases the application's functionality and key features of a FOSMIS interface.</p>
+          <p>This project demonstrates my understanding and implementation of Object-Oriented Programming principles in Java. Built as a partial fulfillment of my degree program, it showcases a FOSMIS interface with full CRUD functionality.</p>
           <h3>Technologies Used</h3>
           <div class="tech-stack">
             <span>Java</span>
@@ -252,7 +263,7 @@
   <section class="skills" id="skills">
     <div class="container">
       <h2 class="section-title fade-up">My Skills</h2>
-      <div class="skills-grid">
+      <div class="skills-grid stagger">
         <div class="skill-category fade-up">
           <h3>Technical Skills</h3>
           <div class="skill-item">
@@ -348,21 +359,21 @@
   <section class="blog-preview" id="blog">
     <div class="container">
       <h2 class="section-title fade-up">Latest Blog Posts</h2>
-      <p class="section-desc fade-up">Check out my latest thoughts and tutorials</p>
-      <div class="blog-preview-grid">
+      <p class="section-desc fade-up">Thoughts and tutorials on data science, finance, and statistics</p>
+      <div class="blog-preview-grid stagger">
         <div class="blog-card fade-up">
           <div class="blog-card-image">
             <img src="assets/images/blog1MLR.webp" alt="Multiple Linear Regression" loading="lazy">
           </div>
           <div class="blog-card-content">
-            <div class="blog-card-date">March 27, 2025</div>
+            <div class="blog-card-date"><i class="far fa-calendar-alt"></i> March 27, 2025</div>
             <h3><a href="blog/multiple-linear-regression.html">Multiple Linear Regression: Implementation in R and Python</a></h3>
-            <p>Learn how to implement multiple linear regression models in both R and Python, and understand the key differences between these two approaches.</p>
+            <p>Learn how to implement multiple linear regression models in both R and Python with practical examples.</p>
             <a href="blog/multiple-linear-regression.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
-      <div style="text-align:center; margin-top: 16px;" class="fade-up">
+      <div style="text-align:center; margin-top: 24px;" class="fade-up">
         <a href="blog.html" class="btn primary-btn">View All Posts</a>
       </div>
     </div>
@@ -396,12 +407,8 @@
             </div>
           </div>
           <div class="social-links" style="margin-top:24px;">
-            <a href="https://github.com/MHMNP2021" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub">
-              <i class="fab fa-github"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/mahinsa-nethmina-451284288/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn">
-              <i class="fab fa-linkedin-in"></i>
-            </a>
+            <a href="https://github.com/MHMNP2021" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/mahinsa-nethmina-451284288/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </div>
         <div class="contact-form">
@@ -422,7 +429,9 @@
               <label for="message">Message</label>
               <textarea id="message" name="message" rows="5" required></textarea>
             </div>
-            <button type="submit" class="btn primary-btn">Send Message</button>
+            <button type="submit" class="btn primary-btn">
+              <i class="fas fa-paper-plane"></i> Send Message
+            </button>
           </form>
           <div id="formMessage" class="form-message"></div>
         </div>
@@ -446,11 +455,11 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h3>Latest Blog Posts</h3>
+          <h3>Latest Posts</h3>
           <ul>
-            <li><a href="blog/multiple-linear-regression.html"><i class="fas fa-chevron-right"></i> Multiple Linear Regression in R and Python</a></li>
-            <li><a href="blog/capital-market.html"><i class="fas fa-chevron-right"></i> Capital Market: A Comprehensive Overview</a></li>
-            <li><a href="blog/money-market.html"><i class="fas fa-chevron-right"></i> Money Market: A Comprehensive Overview</a></li>
+            <li><a href="blog/multiple-linear-regression.html"><i class="fas fa-chevron-right"></i> MLR in R and Python</a></li>
+            <li><a href="blog/capital-market.html"><i class="fas fa-chevron-right"></i> Capital Market Overview</a></li>
+            <li><a href="blog/money-market.html"><i class="fas fa-chevron-right"></i> Money Market Overview</a></li>
           </ul>
         </div>
       </div>
