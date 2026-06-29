@@ -1,1393 +1,364 @@
 <!DOCTYPE html>
-<html lang="en" class="dark-theme">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | M Nethmina Perera</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            /* Light theme variables */
-            --light-bg-color: #f5f7fa;
-            --light-text-color: #333333;
-            --light-accent-color: #4d7bf3;
-            --light-card-bg: #ffffff;
-            --light-secondary-text: #666666;
-            --light-border-color: #e0e0e0;
-            --light-tag-bg: #eef2ff;
-            --light-button-hover: #3d63c9;
-            --light-filter-active: #4d7bf3;
-            --light-filter-inactive: #e0e0e0;
-            --light-header-bg: rgba(255, 255, 255, 0.95);
-            --light-footer-bg: #f0f2f5;
-            --light-card-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            --light-input-bg: #ffffff;
-            --light-newsletter-bg: #eef2ff;
-            
-            /* Dark theme variables */
-            --dark-bg-color: #121212;
-            --dark-text-color: #ffffff;
-            --dark-accent-color: #4d7bf3;
-            --dark-card-bg: #1e1e1e;
-            --dark-secondary-text: #b0b0b0;
-            --dark-border-color: #333333;
-            --dark-tag-bg: #2d2d2d;
-            --dark-button-hover: #3d63c9;
-            --dark-filter-active: #4d7bf3;
-            --dark-filter-inactive: #2d2d2d;
-            --dark-header-bg: rgba(18, 18, 18, 0.95);
-            --dark-footer-bg: #1a1a1a;
-            --dark-card-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            --dark-input-bg: #2d2d2d;
-            --dark-newsletter-bg: #1e1e1e;
-            
-            /* Default to dark theme */
-            --bg-color: var(--dark-bg-color);
-            --text-color: var(--dark-text-color);
-            --accent-color: var(--dark-accent-color);
-            --card-bg: var(--dark-card-bg);
-            --secondary-text: var(--dark-secondary-text);
-            --border-color: var(--dark-border-color);
-            --tag-bg: var(--dark-tag-bg);
-            --button-hover: var(--dark-button-hover);
-            --filter-active: var(--dark-filter-active);
-            --filter-inactive: var(--dark-filter-inactive);
-            --header-bg: var(--dark-header-bg);
-            --footer-bg: var(--dark-footer-bg);
-            --card-shadow: var(--dark-card-shadow);
-            --input-bg: var(--dark-input-bg);
-            --newsletter-bg: var(--dark-newsletter-bg);
-        }
-
-        .light-theme {
-            --bg-color: var(--light-bg-color);
-            --text-color: var(--light-text-color);
-            --accent-color: var(--light-accent-color);
-            --card-bg: var(--light-card-bg);
-            --secondary-text: var(--light-secondary-text);
-            --border-color: var(--light-border-color);
-            --tag-bg: var(--light-tag-bg);
-            --button-hover: var(--light-button-hover);
-            --filter-active: var(--light-filter-active);
-            --filter-inactive: var(--light-filter-inactive);
-            --header-bg: var(--light-header-bg);
-            --footer-bg: var(--light-footer-bg);
-            --card-shadow: var(--light-card-shadow);
-            --input-bg: var(--light-input-bg);
-            --newsletter-bg: var(--light-newsletter-bg);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        a {
-            text-decoration: none;
-            color: var(--text-color);
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: var(--accent-color);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header and Navigation */
-        header {
-            background-color: var(--header-bg);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(10px);
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 20px;
-        }
-
-        .logo {
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--accent-color);
-        }
-
-        .logo span {
-            color: var(--text-color);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav ul li a {
-            font-weight: 500;
-            padding: 5px 0;
-            position: relative;
-            font-size: 0.95rem;
-        }
-
-        nav ul li a.active {
-            color: var(--accent-color);
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover::after,
-        nav ul li a.active::after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            padding: 150px 0 100px;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(77, 123, 243, 0.1) 0%, rgba(77, 123, 243, 0) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(77, 123, 243, 0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 30%, rgba(77, 123, 243, 0.1) 0%, transparent 40%);
-            z-index: -1;
-        }
-
-        .hero-section h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            margin-bottom: 15px;
-            background: linear-gradient(to right, var(--accent-color), #6d92f3);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .section-description {
-            color: var(--secondary-text);
-            margin-bottom: 40px;
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        /* Search Bar */
-        .search-container {
-            max-width: 600px;
-            margin: 0 auto 50px;
-            position: relative;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-        }
-
-        .search-bar {
-            width: 100%;
-            padding: 15px 20px;
-            border-radius: 30px;
-            border: 1px solid var(--border-color);
-            background-color: var(--input-bg);
-            color: var(--text-color);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            padding-left: 50px;
-        }
-
-        .search-bar:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(77, 123, 243, 0.2);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--secondary-text);
-        }
-
-        /* Blog Filter */
-        .blog-filter {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease-out 0.6s both;
-        }
-
-        .filter-btn {
-            background-color: var(--filter-inactive);
-            color: var(--text-color);
-            border: none;
-            padding: 10px 25px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active {
-            background-color: var(--filter-active);
-            color: white;
-            box-shadow: 0 4px 10px rgba(77, 123, 243, 0.3);
-            transform: translateY(-2px);
-        }
-
-        .filter-btn:hover {
-            background-color: var(--button-hover);
-            color: white;
-        }
-
-        /* Blog Posts */
-        .blog-posts {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .blog-post {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            box-shadow: var(--card-shadow);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .blog-post:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .blog-post:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        .blog-post:nth-child(4) {
-            animation-delay: 0.6s;
-        }
-
-        .blog-post:nth-child(5) {
-            animation-delay: 0.8s;
-        }
-
-        .blog-post:nth-child(6) {
-            animation-delay: 1.0s;
-        }
-
-        .blog-post:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .post-image {
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .post-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .blog-post:hover .post-image img {
-            transform: scale(1.05);
-        }
-
-        .post-content {
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            position: relative;
-        }
-
-        .post-date {
-            color: var(--secondary-text);
-            font-size: 0.9rem;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .post-date i {
-            margin-right: 8px;
-            color: var(--accent-color);
-        }
-
-        .blog-post h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            line-height: 1.3;
-            transition: color 0.3s ease;
-        }
-
-        .blog-post h2 a:hover {
-            color: var(--accent-color);
-        }
-
-        .post-tags {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            background-color: var(--tag-bg);
-            color: var(--accent-color);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .tag:hover {
-            background-color: var(--accent-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .blog-post p {
-            color: var(--secondary-text);
-            margin-bottom: 25px;
-            flex-grow: 1;
-            line-height: 1.7;
-        }
-
-        .post-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-
-        .read-more {
-            color: var(--accent-color);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-        }
-
-        .read-more i {
-            margin-left: 5px;
-            transition: transform 0.3s ease;
-        }
-
-        .read-more:hover {
-            color: var(--button-hover);
-        }
-
-        .read-more:hover i {
-            transform: translateX(5px);
-        }
-
-        .social-share {
-            display: flex;
-            gap: 10px;
-        }
-
-        .share-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--tag-bg);
-            color: var(--secondary-text);
-            transition: all 0.3s ease;
-            font-size: 0.8rem;
-        }
-
-        .share-btn:hover {
-            background-color: var(--accent-color);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        /* Newsletter Section */
-        .newsletter-section {
-            background-color: var(--newsletter-bg);
-            padding: 80px 0;
-            margin-top: 60px;
-            border-radius: 20px;
-            margin-bottom: 60px;
-        }
-
-        .newsletter-container {
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        .newsletter-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .newsletter-section p {
-            color: var(--secondary-text);
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-
-        .newsletter-form {
-            display: flex;
-            max-width: 500px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .newsletter-input {
-            flex-grow: 1;
-            padding: 15px 20px;
-            border-radius: 30px;
-            border: 1px solid var(--border-color);
-            background-color: var(--input-bg);
-            color: var(--text-color);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            padding-right: 150px;
-        }
-
-        .newsletter-input:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(77, 123, 243, 0.2);
-        }
-
-        .subscribe-btn {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .subscribe-btn:hover {
-            background-color: var(--button-hover);
-            transform: translateY(-2px);
-        }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 50px;
-            margin-bottom: 80px;
-        }
-
-        .page-link {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: var(--card-shadow);
-        }
-
-        .page-link.active {
-            background-color: var(--accent-color);
-            color: white;
-        }
-
-        .page-link:hover:not(.active) {
-            background-color: var(--tag-bg);
-            transform: translateY(-3px);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--footer-bg);
-            padding: 80px 0 30px;
-            transition: background-color 0.3s ease;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        footer h3 {
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            color: var(--accent-color);
-            position: relative;
-            padding-bottom: 15px;
-        }
-
-        footer h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: var(--accent-color);
-        }
-
-        footer ul {
-            list-style: none;
-        }
-
-        footer ul li {
-            margin-bottom: 15px;
-        }
-
-        footer ul li a {
-            color: var(--secondary-text);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-        }
-
-        footer ul li a i {
-            margin-right: 10px;
-            color: var(--accent-color);
-            font-size: 0.8rem;
-        }
-
-        footer ul li a:hover {
-            color: var(--text-color);
-            transform: translateX(5px);
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .footer-social a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(77, 123, 243, 0.1);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--accent-color);
-            transition: all 0.3s ease;
-        }
-
-        .footer-social a:hover {
-            background-color: var(--accent-color);
-            color: white;
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid var(--border-color);
-            color: var(--secondary-text);
-            font-size: 0.9rem;
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background-color: var(--accent-color);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 99;
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background-color: var(--button-hover);
-            transform: translateY(-5px);
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            z-index: 99;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            transform: rotate(30deg);
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Loading Animation */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--bg-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(77, 123, 243, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--accent-color);
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-section h1 {
-                font-size: 3.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            nav ul {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background-color: var(--header-bg);
-                flex-direction: column;
-                align-items: center;
-                padding: 20px 0;
-                gap: 20px;
-                border-bottom: 1px solid var(--border-color);
-                transform: translateY(-100%);
-                opacity: 0;
-                visibility: hidden;
-                transition: all 0.3s ease;
-                backdrop-filter: blur(10px);
-            }
-
-            nav ul.active {
-                transform: translateY(0);
-                opacity: 1;
-                visibility: visible;
-            }
-
-            .hero-section {
-                padding: 120px 0 80px;
-            }
-
-            .hero-section h1 {
-                font-size: 2.8rem;
-            }
-
-            .blog-posts {
-                grid-template-columns: 1fr;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-            }
-
-            .newsletter-input {
-                padding-right: 20px;
-                margin-bottom: 15px;
-            }
-
-            .subscribe-btn {
-                position: static;
-                width: 100%;
-                padding: 15px;
-            }
-
-            .back-to-top, .theme-toggle {
-                width: 45px;
-                height: 45px;
-                font-size: 1rem;
-            }
-
-            .back-to-top {
-                right: 20px;
-                bottom: 20px;
-            }
-
-            .theme-toggle {
-                left: 20px;
-                bottom: 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-section h1 {
-                font-size: 2.3rem;
-            }
-
-            .section-description {
-                font-size: 1rem;
-            }
-
-            .filter-btn {
-                padding: 8px 15px;
-                font-size: 0.85rem;
-            }
-
-            .blog-filter {
-                gap: 10px;
-            }
-
-            .post-footer {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            .social-share {
-                width: 100%;
-                justify-content: flex-start;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | M Nethmina Perera</title>
+  <meta name="description" content="Insights and tutorials on data science, financial analysis, economics, and more by M. Nethmina Perera.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4d7bf3">
+  <style>
+    .blog-hero {
+      padding: 140px 24px 80px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(77,123,243,.08) 0%, transparent 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .blog-hero p { color: var(--text-secondary); max-width: 600px; margin: 0 auto 32px; font-size: 1.05rem; }
+    .search-wrap { max-width: 500px; margin: 0 auto; position: relative; }
+    .search-wrap input {
+      width: 100%; padding: 14px 20px 14px 48px;
+      border-radius: 50px; border: 1px solid var(--border);
+      background: var(--bg-card); color: var(--text);
+      font-size: 0.95rem; transition: all .3s;
+    }
+    .search-wrap input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(77,123,243,.15); }
+    .search-wrap i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    .blog-main { padding: 60px 0 80px; }
+    .blog-filter { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; flex-wrap: wrap; }
+    .blog-posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 28px; }
+    .blog-post-card {
+      background: var(--bg-card); border-radius: var(--radius); overflow: hidden;
+      box-shadow: var(--shadow); transition: all .3s;
+      display: flex; flex-direction: column; height: 100%;
+    }
+    .blog-post-card:hover { transform: translateY(-8px); box-shadow: 0 16px 32px rgba(0,0,0,.25); }
+    .post-img { height: 200px; overflow: hidden; }
+    .post-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .blog-post-card:hover .post-img img { transform: scale(1.05); }
+    .post-body { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+    .post-date { color: var(--text-muted); font-size: .85rem; margin-bottom: 8px; }
+    .post-body h2 { font-size: 1.2rem; margin-bottom: 10px; line-height: 1.4; }
+    .post-body h2 a:hover { color: var(--primary); }
+    .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+    .post-tags .tag {
+      padding: 4px 12px; border-radius: 50px;
+      background: var(--tag-bg); color: var(--primary);
+      font-size: .78rem; font-weight: 500; transition: all .3s;
+    }
+    .post-tags .tag:hover { background: var(--primary); color: #fff; }
+    .post-body p { color: var(--text-secondary); font-size: .9rem; margin-bottom: 16px; flex-grow: 1; line-height: 1.7; }
+    .pagination { display: flex; justify-content: center; gap: 8px; margin-top: 48px; }
+    .page-link {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg-card); color: var(--text); font-weight: 500;
+      transition: all .3s; box-shadow: var(--shadow);
+    }
+    .page-link.active, .page-link:hover { background: var(--primary); color: #fff; }
+    .newsletter {
+      background: var(--bg-card); border-radius: var(--radius-lg);
+      padding: 60px 32px; text-align: center; margin: 60px 0;
+    }
+    .newsletter h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 12px; }
+    .newsletter p { color: var(--text-secondary); margin-bottom: 24px; }
+    .newsletter-form { display: flex; max-width: 480px; margin: 0 auto; gap: 12px; }
+    .newsletter-form input {
+      flex: 1; padding: 14px 20px; border-radius: 50px;
+      border: 1px solid var(--border); background: var(--bg);
+      color: var(--text); font-size: .95rem;
+    }
+    .newsletter-form input:focus { outline: none; border-color: var(--primary); }
+    @media (max-width: 600px) {
+      .newsletter-form { flex-direction: column; }
+      .blog-posts-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Loading Animation -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner"></div>
-    </div>
 
-    <!-- Navigation -->
-    <header>
-        <nav>
-            <div class="logo">MHMN<span>Perera</span></div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <ul id="navLinks">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="index.html#about">About</a></li>
-                <li><a href="index.html#projects">Projects</a></li>
-                <li><a href="index.html#skills">Skills</a></li>
-                <li><a href="index.html#experience">Experience</a></li>
-                <li><a href="blog.html" class="active">Blog</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+  </div>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div class="container">
-                <h1>Insights & Knowledge</h1>
-                <p class="section-description">Explore my thoughts, insights, and tutorials on data science, financial analysis, economics, and more.</p>
-                
-                <!-- Search Bar -->
-                <div class="search-container">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" class="search-bar" id="searchBar" placeholder="Search articles...">
-                </div>
-            </div>
-        </section>
+  <!-- Header -->
+  <header id="header">
+    <nav>
+      <div class="logo">MHMN<span>Perera</span></div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#experience">Experience</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-        <section class="blog-section">
-            <div class="container">
-                <!-- Blog Filter -->
-                <div class="blog-filter">
-                    <button class="filter-btn active" data-filter="all">All Posts</button>
-                    <button class="filter-btn" data-filter="economic">Economics</button>
-                    <button class="filter-btn" data-filter="data-science">Data Science</button>
-                    <button class="filter-btn" data-filter="statistics">Statistics</button>
-                    <button class="filter-btn" data-filter="finance">Finance</button>
-                    <button class="filter-btn" data-filter="trading">Trading</button>
-                    <button class="filter-btn" data-filter="business">Business</button>
-                    <button class="filter-btn" data-filter="management">Management</button>
-                </div>
+  <main>
+    <section class="blog-hero">
+      <h1>Insights & Knowledge</h1>
+      <p>Explore my thoughts, insights, and tutorials on data science, financial analysis, economics, and more.</p>
+      <div class="search-wrap">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchBar" placeholder="Search articles...">
+      </div>
+    </section>
 
-                <!-- Blog Posts -->
-                <div class="blog-posts" id="blogPosts">
-                    <!-- Blog Post 1 - Types of Disagreement (NEW) -->
-                    <article class="blog-post" data-tags="all business management psychology">
-                        <div class="post-image">
-                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Types of Disagreement">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-date">
-                                <i class="far fa-calendar-alt"></i> January 27, 2025
-                            </div>
-                            <h2><a href="blog/disagreement-types.html">Types of Disagreement in Corporate Sector and Society</a></h2>
-                            <div class="post-tags">
-                                <span class="tag">Business</span>
-                                <span class="tag">Management</span>
-                                <span class="tag">Psychology</span>
-                            </div>
-                            <p>
-                                Explore the five primary types of disagreements in corporate environments and society: emotionally driven, fact-based, bias-based, communication-related, and fear-based conflicts. Learn effective resolution strategies for each type.
-                            </p>
-                            <div class="post-footer">
-                                <a href="blog/disagreement-types.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                <div class="social-share">
-                                    <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="share-btn"><i class="fab fa-linkedin"></i></a>
-                                    <a href="#" class="share-btn"><i class="far fa-copy"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Blog Post 2 - Business Communication in Finance -->
-                    <article class="blog-post" data-tags="all finance business">
-                        <div class="post-image">
-                            <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2126&q=80" alt="Business Communication in Finance">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-date">
-                                <i class="far fa-calendar-alt"></i> May 20, 2025
-                            </div>
-                            <h2><a href="blog/business-communication-finance.html">Mastering Business Communication in Finance</a></h2>
-                            <div class="post-tags">
-                                <span class="tag">Finance</span>
-                                <span class="tag">Communication</span>
-                                <span class="tag">Business</span>
-                            </div>
-                            <p>
-                                Learn how effective communication can be your competitive edge in finance. Discover strategies for client communication, data visualization, financial storytelling, and avoiding common pitfalls in financial messaging.
-                            </p>
-                            <div class="post-footer">
-                                <a href="blog/business-communication-finance.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                <div class="social-share">
-                                    <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="share-btn"><i class="fab fa-linkedin"></i></a>
-                                    <a href="#" class="share-btn"><i class="far fa-copy"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <!-- Blog Post 3 - Forex Market -->
-                    <article class="blog-post" data-tags="all economic finance trading">
-                        <div class="post-image">
-                            <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Forex Market">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-date">
-                                <i class="far fa-calendar-alt"></i> April 21, 2025
-                            </div>
-                            <h2><a href="blog/forex-market.html">Forex Market: A Comprehensive Overview</a></h2>
-                            <div class="post-tags">
-                                <span class="tag">Finance</span>
-                                <span class="tag">Trading</span>
-                                <span class="tag">Global Markets</span>
-                            </div>
-                            <p>
-                                Explore the world's largest financial market with daily trading volumes exceeding $6.6 trillion. Learn about currency pairs, market participants, and how the Forex market impacts global economics.
-                            </p>
-                            <div class="post-footer">
-                                <a href="blog/forex-market.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                <div class="social-share">
-                                    <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="share-btn"><i class="fab fa-linkedin"></i></a>
-                                    <a href="#" class="share-btn"><i class="far fa-copy"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <!-- Blog Post 4 - Multiple Linear Regression -->
-                    <article class="blog-post" data-tags="all data-science statistics">
-                        <div class="post-image">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Multiple Linear Regression">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-date">
-                                <i class="far fa-calendar-alt"></i> March 27, 2025
-                            </div>
-                            <h2><a href="blog/multiple-linear-regression.html">Multiple Linear Regression: Implementation in R and Python</a></h2>
-                            <div class="post-tags">
-                                <span class="tag">Data Science</span>
-                                <span class="tag">Statistics</span>
-                            </div>
-                            <p>
-                                Learn how to implement multiple linear regression models in both R and Python, and understand the key differences between these two approaches for predictive modeling.
-                            </p>
-                            <div class="post-footer">
-                                <a href="blog/multiple-linear-regression.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                <div class="social-share">
-                                    <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="share-btn"><i class="fab fa-linkedin"></i></a>
-                                    <a href="#" class="share-btn"><i class="far fa-copy"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    <!-- Blog Post 5 - Capital Market -->
-                    <article class="blog-post" data-tags="all economic finance">
-                        <div class="post-image">
-                            <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Capital Market">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-date">
-                                <i class="far fa-calendar-alt"></i> March 29, 2025
-                            </div>
-                            <h2><a href="blog/capital-market.html">Capital Market: A Comprehensive Overview</a></h2>
-                            <div class="post-tags">
-                                <span class="tag">Economics</span>
-                                <span class="tag">Finance</span>
-                            </div>
-                            <p>
-                                Explore the structure, functions, and importance of capital markets in the global economy, with a special focus on the Sri Lankan capital market landscape.
-                            </p>
-                            <div class="post-footer">
-                                <a href="blog/capital-market.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                <div class="social-share">
-                                    <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="share-btn"><i class="fab fa-linkedin"></i></a>
-                                    <a href="#" class="share-btn"><i class="far fa-copy"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Blog Post 6 - Money Market -->
-                    <article class="blog-post" data-tags="all economic finance">
-                        <div class="post-image">
-                            <img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Money Market">
-                        </div>
-                        <div class="post-content">
-                            <div class="post-date">
-                                <i class="far fa-calendar-alt"></i> March 31, 2025
-                            </div>
-                            <h2><a href="blog/money-market.html">Money Market: A Comprehensive Overview</a></h2>
-                            <div class="post-tags">
-                                <span class="tag">Economics</span>
-                                <span class="tag">Finance</span>
-                            </div>
-                            <p>
-                                Discover the essential components, functions, and significance of money markets in the financial system, including a detailed look at Sri Lanka's money market.
-                            </p>
-                            <div class="post-footer">
-                                <a href="blog/money-market.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
-                                <div class="social-share">
-                                    <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="share-btn"><i class="fab fa-linkedin"></i></a>
-                                    <a href="#" class="share-btn"><i class="far fa-copy"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-
-                <!-- Pagination -->
-                <div class="pagination">
-                    <a href="#" class="page-link active">1</a>
-                    <a href="#" class="page-link">2</a>
-                    <a href="#" class="page-link">3</a>
-                    <a href="#" class="page-link"><i class="fas fa-angle-right"></i></a>
-                </div>
-
-                <!-- Newsletter Section -->
-                <div class="newsletter-section fade-in">
-                    <div class="newsletter-container">
-                        <h2>Subscribe to My Newsletter</h2>
-                        <p>Stay updated with my latest articles, tutorials, and insights delivered directly to your inbox.</p>
-                        <form class="newsletter-form">
-                            <input type="email" class="newsletter-input" placeholder="Your email address" required>
-                            <button type="submit" class="subscribe-btn">Subscribe</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="about-widget">
-                    <h3>About Me</h3>
-                    <p>I'm a data scientist and financial analyst passionate about exploring the intersection of data, economics, and technology.</p>
-                    <div class="footer-social">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-medium-m"></i></a>
-                    </div>
-                </div>
-                
-                <div class="quick-links">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> About</a></li>
-                        <li><a href="index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
-                        <li><a href="index.html#skills"><i class="fas fa-chevron-right"></i> Skills</a></li>
-                        <li><a href="blog.html"><i class="fas fa-chevron-right"></i> My Blog</a></li>
-                        <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div class="latest-posts">
-                    <h3>Latest Blog Posts</h3>
-                    <ul>
-                        <li><a href="blog/disagreement-types.html"><i class="fas fa-chevron-right"></i> Types of Disagreement in Corporate Sector and Society</a></li>
-                        <li><a href="blog/forex-market.html"><i class="fas fa-chevron-right"></i> Forex Market: A Comprehensive Overview</a></li>
-                        <li><a href="blog/money-market.html"><i class="fas fa-chevron-right"></i> Money Market: A Comprehensive Overview</a></li>
-                        <li><a href="blog/capital-market.html"><i class="fas fa-chevron-right"></i> Capital Market: A Comprehensive Overview</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2025 M Nethmina Perera. All Rights Reserved.</p>
-            </div>
+    <section class="blog-main">
+      <div class="container">
+        <div class="blog-filter">
+          <button class="filter-btn active" data-filter="all">All Posts</button>
+          <button class="filter-btn" data-filter="economic">Economics</button>
+          <button class="filter-btn" data-filter="data-science">Data Science</button>
+          <button class="filter-btn" data-filter="statistics">Statistics</button>
+          <button class="filter-btn" data-filter="finance">Finance</button>
+          <button class="filter-btn" data-filter="trading">Trading</button>
+          <button class="filter-btn" data-filter="business">Business</button>
+          <button class="filter-btn" data-filter="management">Management</button>
         </div>
-    </footer>
 
-    <!-- Theme Toggle -->
-    <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-sun"></i>
+        <div class="blog-posts-grid" id="blogPosts">
+          <article class="blog-post-card" data-tags="all business management psychology">
+            <div class="post-img">
+              <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80" alt="Types of Disagreement" loading="lazy">
+            </div>
+            <div class="post-body">
+              <div class="post-date"><i class="far fa-calendar-alt"></i> January 27, 2025</div>
+              <h2><a href="blog/disagreement-types.html">Types of Disagreement in Corporate Sector and Society</a></h2>
+              <div class="post-tags">
+                <span class="tag">Business</span>
+                <span class="tag">Management</span>
+                <span class="tag">Psychology</span>
+              </div>
+              <p>Explore the five primary types of disagreements in corporate environments and society: emotionally driven, fact-based, bias-based, communication-related, and fear-based conflicts. Learn effective resolution strategies for each type.</p>
+              <a href="blog/disagreement-types.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+
+          <article class="blog-post-card" data-tags="all finance business">
+            <div class="post-img">
+              <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80" alt="Business Communication" loading="lazy">
+            </div>
+            <div class="post-body">
+              <div class="post-date"><i class="far fa-calendar-alt"></i> May 20, 2025</div>
+              <h2><a href="blog/business-communication-finance.html">Mastering Business Communication in Finance</a></h2>
+              <div class="post-tags">
+                <span class="tag">Finance</span>
+                <span class="tag">Communication</span>
+                <span class="tag">Business</span>
+              </div>
+              <p>Learn how effective communication can be your competitive edge in finance. Discover strategies for client communication, data visualization, financial storytelling, and avoiding common pitfalls in financial messaging.</p>
+              <a href="blog/business-communication-finance.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+
+          <article class="blog-post-card" data-tags="all economic finance trading">
+            <div class="post-img">
+              <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80" alt="Forex Market" loading="lazy">
+            </div>
+            <div class="post-body">
+              <div class="post-date"><i class="far fa-calendar-alt"></i> April 21, 2025</div>
+              <h2><a href="blog/forex-market.html">Forex Market: A Comprehensive Overview</a></h2>
+              <div class="post-tags">
+                <span class="tag">Finance</span>
+                <span class="tag">Trading</span>
+                <span class="tag">Global Markets</span>
+              </div>
+              <p>Explore the world's largest financial market with daily trading volumes exceeding $6.6 trillion. Learn about currency pairs, market participants, and how the Forex market impacts global economics.</p>
+              <a href="blog/forex-market.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+
+          <article class="blog-post-card" data-tags="all data-science statistics">
+            <div class="post-img">
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Data Analysis" loading="lazy">
+            </div>
+            <div class="post-body">
+              <div class="post-date"><i class="far fa-calendar-alt"></i> March 27, 2025</div>
+              <h2><a href="blog/multiple-linear-regression.html">Multiple Linear Regression: Implementation in R and Python</a></h2>
+              <div class="post-tags">
+                <span class="tag">Data Science</span>
+                <span class="tag">Statistics</span>
+              </div>
+              <p>Learn how to implement multiple linear regression models in both R and Python, and understand the key differences between these two approaches for predictive modeling.</p>
+              <a href="blog/multiple-linear-regression.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+
+          <article class="blog-post-card" data-tags="all economic finance">
+            <div class="post-img">
+              <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80" alt="Capital Market" loading="lazy">
+            </div>
+            <div class="post-body">
+              <div class="post-date"><i class="far fa-calendar-alt"></i> March 29, 2025</div>
+              <h2><a href="blog/capital-market.html">Capital Market: A Comprehensive Overview</a></h2>
+              <div class="post-tags">
+                <span class="tag">Economics</span>
+                <span class="tag">Finance</span>
+              </div>
+              <p>Explore the structure, functions, and importance of capital markets in the global economy, with a special focus on the Sri Lankan capital market landscape.</p>
+              <a href="blog/capital-market.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+
+          <article class="blog-post-card" data-tags="all economic finance">
+            <div class="post-img">
+              <img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=800&q=80" alt="Money Market" loading="lazy">
+            </div>
+            <div class="post-body">
+              <div class="post-date"><i class="far fa-calendar-alt"></i> March 31, 2025</div>
+              <h2><a href="blog/money-market.html">Money Market: A Comprehensive Overview</a></h2>
+              <div class="post-tags">
+                <span class="tag">Economics</span>
+                <span class="tag">Finance</span>
+              </div>
+              <p>Discover the essential components, functions, and significance of money markets in the financial system, including a detailed look at Sri Lanka's money market.</p>
+              <a href="blog/money-market.html" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </article>
+        </div>
+
+        <div class="pagination">
+          <a href="#" class="page-link active">1</a>
+          <a href="#" class="page-link">2</a>
+          <a href="#" class="page-link">3</a>
+          <a href="#" class="page-link"><i class="fas fa-angle-right"></i></a>
+        </div>
+
+        <div class="newsletter fade-up">
+          <h2>Subscribe to My Newsletter</h2>
+          <p>Stay updated with my latest articles, tutorials, and insights delivered directly to your inbox.</p>
+          <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit" class="btn primary-btn" style="white-space:nowrap;">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>About Me</h3>
+          <p style="color:var(--text-secondary);font-size:.9rem;line-height:1.6;">I'm a data scientist and financial analyst passionate about exploring the intersection of data, economics, and technology.</p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+            <li><a href="index.html#about"><i class="fas fa-chevron-right"></i> About</a></li>
+            <li><a href="index.html#projects"><i class="fas fa-chevron-right"></i> Projects</a></li>
+            <li><a href="index.html#skills"><i class="fas fa-chevron-right"></i> Skills</a></li>
+            <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
+            <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Latest Posts</h3>
+          <ul>
+            <li><a href="blog/disagreement-types.html"><i class="fas fa-chevron-right"></i> Types of Disagreement in Corporate Sector and Society</a></li>
+            <li><a href="blog/forex-market.html"><i class="fas fa-chevron-right"></i> Forex Market: A Comprehensive Overview</a></li>
+            <li><a href="blog/money-market.html"><i class="fas fa-chevron-right"></i> Money Market: A Comprehensive Overview</a></li>
+            <li><a href="blog/capital-market.html"><i class="fas fa-chevron-right"></i> Capital Market: A Comprehensive Overview</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 M Nethmina Perera. All Rights Reserved.</p>
+      </div>
     </div>
+  </footer>
 
-    <!-- Back to Top Button -->
-    <a href="#" class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </a>
+  <div class="theme-toggle" id="themeToggle">
+    <i class="fas fa-sun"></i>
+  </div>
 
-    <!-- Scripts -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Remove loading overlay
-            setTimeout(function() {
-                const loadingOverlay = document.getElementById('loadingOverlay');
-                loadingOverlay.style.opacity = '0';
-                setTimeout(function() {
-                    loadingOverlay.style.display = 'none';
-                }, 500);
-            }, 800);
+  <a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </a>
 
-            // Mobile menu toggle
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.getElementById('navLinks');
-            
-            mobileMenuBtn.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                
-                if (navLinks.classList.contains('active')) {
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
-                } else {
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            });
-            
-            // Blog filtering functionality
-            const filterButtons = document.querySelectorAll('.blog-filter .filter-btn');
-            const blogPosts = document.querySelectorAll('.blog-post');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    const filter = this.getAttribute('data-filter');
-                    
-                    // Hide all posts first
-                    blogPosts.forEach(post => {
-                        post.style.opacity = '0';
-                        post.style.transform = 'translateY(20px)';
-                    });
-                    
-                    // Show filtered posts with delay
-                    setTimeout(() => {
-                        blogPosts.forEach(post => {
-                            const tags = post.getAttribute('data-tags').split(' ');
-                            
-                            if (filter === 'all' || tags.includes(filter)) {
-                                post.style.display = 'flex';
-                                setTimeout(() => {
-                                    post.style.opacity = '1';
-                                    post.style.transform = 'translateY(0)';
-                                }, 100);
-                            } else {
-                                post.style.display = 'none';
-                            }
-                        });
-                    }, 300);
-                });
-            });
-            
-            // Search functionality
-            const searchBar = document.getElementById('searchBar');
-            
-            searchBar.addEventListener('keyup', function() {
-                const searchTerm = this.value.toLowerCase();
-                
-                blogPosts.forEach(post => {
-                    const title = post.querySelector('h2').textContent.toLowerCase();
-                    const content = post.querySelector('p').textContent.toLowerCase();
-                    const tags = post.getAttribute('data-tags').toLowerCase();
-                    
-                    if (title.includes(searchTerm) || content.includes(searchTerm) || tags.includes(searchTerm)) {
-                        post.style.display = 'flex';
-                        setTimeout(() => {
-                            post.style.opacity = '1';
-                            post.style.transform = 'translateY(0)';
-                        }, 100);
-                    } else {
-                        post.style.opacity = '0';
-                        post.style.transform = 'translateY(20px)';
-                        setTimeout(() => {
-                            post.style.display = 'none';
-                        }, 300);
-                    }
-                });
-            });
-            
-            // Back to top button functionality
-            const backToTopButton = document.getElementById('backToTop');
-            
-            window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTopButton.classList.add('visible');
-                } else {
-                    backToTopButton.classList.remove('visible');
-                }
-            });
-            
-            backToTopButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-            
-            // Theme toggle functionality
-            const themeToggle = document.getElementById('themeToggle');
-            const htmlElement = document.documentElement;
-            const themeIcon = themeToggle.querySelector('i');
-            
-            // Check for saved theme preference
-            const savedTheme = localStorage.getItem('theme');
-            
-            if (savedTheme === 'light') {
-                htmlElement.classList.add('light-theme');
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Blog filtering
+      const filterBtns = document.querySelectorAll('.blog-filter .filter-btn');
+      const posts = document.querySelectorAll('.blog-post-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const filter = btn.dataset.filter;
+          posts.forEach(post => {
+            const tags = post.dataset.tags.split(' ');
+            if (filter === 'all' || tags.includes(filter)) {
+              post.style.display = 'flex';
+              requestAnimationFrame(() => { post.style.opacity = '1'; post.style.transform = 'translateY(0)'; });
+            } else {
+              post.style.opacity = '0';
+              post.style.transform = 'translateY(12px)';
+              setTimeout(() => { post.style.display = 'none'; }, 300);
             }
-            
-            themeToggle.addEventListener('click', () => {
-                htmlElement.classList.toggle('light-theme');
-                
-                if (htmlElement.classList.contains('light-theme')) {
-                    localStorage.setItem('theme', 'light');
-                    themeIcon.classList.remove('fa-sun');
-                    themeIcon.classList.add('fa-moon');
-                } else {
-                    localStorage.setItem('theme', 'dark');
-                    themeIcon.classList.remove('fa-moon');
-                    themeIcon.classList.add('fa-sun');
-                }
-            });
-            
-            // Scroll animations
-            const fadeElements = document.querySelectorAll('.fade-in');
-            
-            function checkFade() {
-                fadeElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const windowHeight = window.innerHeight;
-                    
-                    if (elementTop < windowHeight - 100) {
-                        element.classList.add('visible');
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', checkFade);
-            checkFade(); // Check on initial load
-            
-            // Newsletter form submission
-            const newsletterForm = document.querySelector('.newsletter-form');
-            
-            newsletterForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const emailInput = this.querySelector('.newsletter-input');
-                
-                // Simple validation
-                if (emailInput.value.trim() !== '') {
-                    // Here you would typically send the data to your server
-                    alert('Thank you for subscribing! You will receive our newsletter soon.');
-                    emailInput.value = '';
-                }
-            });
-            
-            // Social share buttons functionality
-            const shareButtons = document.querySelectorAll('.share-btn');
-            
-            shareButtons.forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const postTitle = this.closest('.blog-post').querySelector('h2').textContent;
-                    const postUrl = this.closest('.blog-post').querySelector('h2 a').getAttribute('href');
-                    const icon = this.querySelector('i');
-                    
-                    if (icon.classList.contains('fa-twitter')) {
-                        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(postTitle)}&url=${encodeURIComponent(window.location.origin + '/' + postUrl)}`, '_blank');
-                    } else if (icon.classList.contains('fa-linkedin')) {
-                        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.origin + '/' + postUrl)}`, '_blank');
-                    } else if (icon.classList.contains('fa-copy')) {
-                        navigator.clipboard.writeText(window.location.origin + '/' + postUrl)
-                            .then(() => {
-                                alert('Link copied to clipboard!');
-                            })
-                            .catch(err => {
-                                console.error('Could not copy text: ', err);
-                            });
-                    }
-                });
-            });
+          });
         });
-    </script>
+      });
+
+      // Search
+      const searchBar = document.getElementById('searchBar');
+      if (searchBar) {
+        searchBar.addEventListener('keyup', () => {
+          const term = searchBar.value.toLowerCase();
+          posts.forEach(post => {
+            const title = post.querySelector('h2').textContent.toLowerCase();
+            const content = post.querySelector('p').textContent.toLowerCase();
+            const tags = post.dataset.tags.toLowerCase();
+            if (title.includes(term) || content.includes(term) || tags.includes(term)) {
+              post.style.display = 'flex';
+              requestAnimationFrame(() => { post.style.opacity = '1'; post.style.transform = 'translateY(0)'; });
+            } else {
+              post.style.opacity = '0';
+              post.style.transform = 'translateY(12px)';
+              setTimeout(() => { post.style.display = 'none'; }, 300);
+            }
+          });
+        });
+      }
+
+      // Newsletter
+      const nlForm = document.getElementById('newsletterForm');
+      if (nlForm) {
+        nlForm.addEventListener('submit', e => {
+          e.preventDefault();
+          const input = nlForm.querySelector('input');
+          if (input.value.trim()) {
+            alert('Thank you for subscribing!');
+            input.value = '';
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
