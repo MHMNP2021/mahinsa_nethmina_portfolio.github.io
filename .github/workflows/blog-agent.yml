@@ -1,0 +1,39 @@
+name: AI Blog Agent
+
+on:
+  schedule:
+    # Run every Monday at 9:00 UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  generate-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install -r blog_agent/requirements.txt
+
+      - name: Run blog agent
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: |
+          python blog_agent/blog_agent.py
+
+      - name: Commit and push
+        run: |
+          git config --global user.name "AI Blog Agent"
+          git config --global user.email "bot@mhmnp2021.github.io"
+          git add -A
+          git diff --staged --quiet || git commit -m "blog: auto-generate new post [skip ci]"
+          git push
