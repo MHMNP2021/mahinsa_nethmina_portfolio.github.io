@@ -37,6 +37,17 @@ CATEGORY_MAP = {
     "management": "Management",
 }
 
+SEARCH_TOPICS = [
+    "latest finance actuarial news 2026",
+    "insurance risk management trends 2026",
+    "portfolio optimization quantitative finance 2026",
+    "actuarial science data analytics 2026",
+    "central bank policy interest rates 2026",
+    "inflation financial markets outlook 2026",
+    "investment banking fintech innovation 2026",
+    "retirement pension fund actuarial 2026",
+]
+
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 GROQ_MODEL = "llama-3.3-70b-versatile"  # Free tier on Groq
 
@@ -65,7 +76,7 @@ def query_groq(prompt: str, system: str = "") -> str:
 
 # ─── Web Search ──────────────────────────────────────────────────────────────
 
-def search_finance_news(query: str = "latest finance actuarial news 2026", max_results: int = 8) -> list:
+def search_finance_news(query: str, max_results: int = 6) -> list:
     results = []
     try:
         with DDGS() as ddgs:
@@ -74,6 +85,11 @@ def search_finance_news(query: str = "latest finance actuarial news 2026", max_r
     except Exception as e:
         print(f"[WARN] DuckDuckGo search failed: {e}")
     return results
+
+
+def pick_search_topic() -> str:
+    idx = int(hashlib.md5(datetime.now(timezone.utc).strftime("%Y-%U").encode()).hexdigest(), 16) % len(SEARCH_TOPICS)
+    return SEARCH_TOPICS[idx]
 
 
 # ─── Content Generation ──────────────────────────────────────────────────────
@@ -91,19 +107,32 @@ Output must be valid JSON with these keys:
   - body_paragraphs: list[str] (intro + closing paragraphs, 2-4 total)"""
 
 
-def generate_post(search_results: list) -> dict:
+def get_existing_titles() -> list:
+    html = BLOG_LISTING.read_text(encoding="utf-8")
+    titles = []
+    for m in re.finditer(r'<h2><a href="blog/[^"]+\.html">([^<]+)</a></h2>', html):
+        titles.append(m.group(1))
+    return titles
+
+
+def generate_post(search_results: list, existing_titles: list) -> dict:
     search_text = "\n\n".join(
         f"Title: {r['title']}\nSnippet: {r['body']}\nURL: {r['href']}"
-        for r in search_results[:5]
+        for r in search_results[:4]
     )
 
-    prompt = f"""Based on these recent financial news articles, write a short blog post:
+    existing_block = ""
+    if existing_titles:
+        existing_block = "\nAlready published topics (AVOID these):\n" + "\n".join(f"  - {t}" for t in existing_titles)
+
+    prompt = f"""Based on these recent financial news articles, write a short blog post on a DIFFERENT topic than anything already published:
 
 --- NEWS ---
 {search_text}
---- END NEWS ---
+--- END NEWS ---{existing_block}
 
 Requirements:
+- Topic must NOT overlap with any already-published topics listed above
 - Short and punchy (300-500 words total)
 - Time-aligned: reference current events/market conditions
 - Focus on finance or actuarial topics
@@ -344,13 +373,18 @@ def main():
 
     BLOG_DIR.mkdir(parents=True, exist_ok=True)
 
-    print("[*] Searching for latest finance/actuarial news...")
-    results = search_finance_news()
+    topic = pick_search_topic()
+    print(f"[*] Searching for: {topic}")
+    results = search_finance_news(topic)
     if not results:
-        print("[!] No search results. Generating post from LLM knowledge...")
+        print("[!] No search results. Using fallback topic...")
+        results = search_finance_news("financial markets 2026")
+
+    existing_titles = get_existing_titles()
+    print(f"[*] Found {len(existing_titles)} existing posts")
 
     print("[*] Generating blog post with Groq...")
-    post = generate_post(results)
+    post = generate_post(results, existing_titles)
     print(f"  Title: {post.get('title', 'N/A')}")
     print(f"  Category: {post.get('category', 'N/A')}")
     print(f"  Tags: {', '.join(post.get('tags', []))}")
