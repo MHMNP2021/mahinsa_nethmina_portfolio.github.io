@@ -275,12 +275,7 @@
           </article>
         </div>
 
-        <div class="pagination">
-          <a href="#" class="page-link active">1</a>
-          <a href="#" class="page-link">2</a>
-          <a href="#" class="page-link">3</a>
-          <a href="#" class="page-link"><i class="fas fa-angle-right"></i></a>
-        </div>
+        <div class="pagination" id="pagination"></div>
 
         <div class="newsletter fade-up">
           <h2>Subscribe to My Newsletter</h2>
@@ -343,51 +338,93 @@
   <script src="script.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const filterBtns = document.querySelectorAll('.blog-filter .filter-btn');
+      const POSTS_PER_PAGE = 6;
       const posts = document.querySelectorAll('.blog-post-card');
+      const pagination = document.getElementById('pagination');
+      const filterBtns = document.querySelectorAll('.blog-filter .filter-btn');
+      const searchBar = document.getElementById('searchBar');
+
+      let currentFilter = 'all';
+      let currentPage = 1;
+
+      function getVisiblePosts() {
+        const term = searchBar ? searchBar.value.toLowerCase() : '';
+        return Array.from(posts).filter(post => {
+          const tags = post.dataset.tags.split(' ');
+          if (currentFilter !== 'all' && !tags.includes(currentFilter)) return false;
+          if (term) {
+            const title = post.querySelector('h2').textContent.toLowerCase();
+            const content = post.querySelector('p').textContent.toLowerCase();
+            const allTags = post.dataset.tags.toLowerCase();
+            if (!title.includes(term) && !content.includes(term) && !allTags.includes(term)) return false;
+          }
+          return true;
+        });
+      }
+
+      function renderPage() {
+        const visible = getVisiblePosts();
+        const totalPages = Math.max(1, Math.ceil(visible.length / POSTS_PER_PAGE));
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        posts.forEach(p => { p.style.display = 'none'; p.style.opacity = '0'; });
+
+        const start = (currentPage - 1) * POSTS_PER_PAGE;
+        const pagePosts = visible.slice(start, start + POSTS_PER_PAGE);
+        pagePosts.forEach((p, i) => {
+          p.style.display = 'flex';
+          requestAnimationFrame(() => {
+            p.style.opacity = '1';
+            p.style.transform = 'translateY(0)';
+          });
+        });
+
+        renderPagination(totalPages);
+      }
+
+      function renderPagination(totalPages) {
+        if (!pagination) return;
+        pagination.innerHTML = '';
+
+        if (totalPages <= 1) return;
+
+        const prev = document.createElement('a');
+        prev.href = '#';
+        prev.className = 'page-link';
+        prev.innerHTML = '<i class="fas fa-angle-left"></i>';
+        prev.addEventListener('click', e => { e.preventDefault(); if (currentPage > 1) { currentPage--; renderPage(); } });
+        pagination.appendChild(prev);
+
+        for (let i = 1; i <= totalPages; i++) {
+          const link = document.createElement('a');
+          link.href = '#';
+          link.className = 'page-link' + (i === currentPage ? ' active' : '');
+          link.textContent = i;
+          link.addEventListener('click', e => { e.preventDefault(); currentPage = i; renderPage(); });
+          pagination.appendChild(link);
+        }
+
+        const next = document.createElement('a');
+        next.href = '#';
+        next.className = 'page-link';
+        next.innerHTML = '<i class="fas fa-angle-right"></i>';
+        next.addEventListener('click', e => { e.preventDefault(); if (currentPage < totalPages) { currentPage++; renderPage(); } });
+        pagination.appendChild(next);
+      }
 
       filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           filterBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          const filter = btn.dataset.filter;
-          posts.forEach((post, i) => {
-            const tags = post.dataset.tags.split(' ');
-            if (filter === 'all' || tags.includes(filter)) {
-              post.style.display = 'flex';
-              post.style.opacity = '0';
-              post.style.transform = 'translateY(20px)';
-              setTimeout(() => {
-                post.style.opacity = '1';
-                post.style.transform = 'translateY(0)';
-              }, i * 80);
-            } else {
-              post.style.opacity = '0';
-              post.style.transform = 'translateY(12px)';
-              setTimeout(() => { post.style.display = 'none'; }, 300);
-            }
-          });
+          currentFilter = btn.dataset.filter;
+          currentPage = 1;
+          renderPage();
         });
       });
 
-      const searchBar = document.getElementById('searchBar');
       if (searchBar) {
-        searchBar.addEventListener('keyup', () => {
-          const term = searchBar.value.toLowerCase();
-          posts.forEach(post => {
-            const title = post.querySelector('h2').textContent.toLowerCase();
-            const content = post.querySelector('p').textContent.toLowerCase();
-            const tags = post.dataset.tags.toLowerCase();
-            if (title.includes(term) || content.includes(term) || tags.includes(term)) {
-              post.style.display = 'flex';
-              requestAnimationFrame(() => { post.style.opacity = '1'; post.style.transform = 'translateY(0)'; });
-            } else {
-              post.style.opacity = '0';
-              post.style.transform = 'translateY(12px)';
-              setTimeout(() => { post.style.display = 'none'; }, 300);
-            }
-          });
-        });
+        searchBar.addEventListener('keyup', () => { currentPage = 1; renderPage(); });
       }
 
       const nlForm = document.getElementById('newsletterForm');
@@ -401,6 +438,8 @@
           }
         });
       }
+
+      renderPage();
     });
   </script>
 </body>
